@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class elegirpersonaje : MonoBehaviour
 {
@@ -16,8 +17,6 @@ public class elegirpersonaje : MonoBehaviour
     [Header("Velocidad de movimiento")]
     [SerializeField] private float velocidadMovimiento = 5f;
 
-    private int personajeCentral = 1;
-
     void Start()
     {
         ActualizarPosiciones(true);
@@ -30,22 +29,13 @@ public class elegirpersonaje : MonoBehaviour
         {
             if (i < posiciones.Length)
             {
-                personajes[i].position = Vector3.Lerp(
-                    personajes[i].position,
-                    posiciones[i].position,
-                    Time.deltaTime * velocidadMovimiento
-                );
-
-                personajes[i].rotation = Quaternion.Lerp(
-                    personajes[i].rotation,
-                    posiciones[i].rotation,
-                    Time.deltaTime * velocidadMovimiento
-                );
+                personajes[i].position = Vector3.Lerp(personajes[i].position, posiciones[i].position, Time.deltaTime * velocidadMovimiento);
+               
+                personajes[i].rotation = Quaternion.Lerp(personajes[i].rotation,posiciones[i].rotation,Time.deltaTime * velocidadMovimiento);
             }
         }
     }
 
-    // 🔹 Actualiza posiciones iniciales o instantáneas
     public void ActualizarPosiciones(bool instantaneo = false)
     {
         for (int i = 0; i < personajes.Length; i++)
@@ -61,8 +51,7 @@ public class elegirpersonaje : MonoBehaviour
         }
     }
 
-    // 🔹 Botón izquierda
-    public void MoverIzquierda()
+    public void MoverDerecha()
     {
         Transform temp = personajes[0];
         personajes[0] = personajes[1];
@@ -73,8 +62,7 @@ public class elegirpersonaje : MonoBehaviour
         ActualizarTexto();
     }
 
-    // 🔹 Botón derecha
-    public void MoverDerecha()
+    public void MoverIzquierda()
     {
         Transform temp = personajes[2];
         personajes[2] = personajes[1];
@@ -85,8 +73,7 @@ public class elegirpersonaje : MonoBehaviour
         ActualizarTexto();
     }
 
-    // 🔹 Botón seleccionar
-    public void SeleccionarPersonaje()
+    public void SeleccionarPersonaje(string name)
     {
         Transform seleccionado = personajes[1]; // El del centro
         Debug.Log(" Seleccionaste a: " + seleccionado.name);
@@ -97,9 +84,10 @@ public class elegirpersonaje : MonoBehaviour
         // Guardar selección global (si tienes un GameManager)
         if (GameManager.instance != null)
             GameManager.instance.SetPersonaje(seleccionado);
+        SceneManager.LoadScene(name);
+        
     }
 
-    // 🔹 Actualiza el texto del personaje actual
     public void ActualizarTexto()
     {
         if (textoSeleccion != null)

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class playermoved : MonoBehaviour
 {
     [Header("Movimiento")]
-    public float speed = 5f;
+    public float speed;
     public float rotationSpeed = 10f;
 
     [Header("Vida")]

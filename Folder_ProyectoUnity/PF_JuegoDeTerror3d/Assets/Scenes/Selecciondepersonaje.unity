@@ -1684,13 +1684,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1993426473}
         m_TargetAssemblyTypeName: elegirpersonaje, Assembly-CSharp
         m_MethodName: SeleccionarPersonaje
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Celda
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1403951933

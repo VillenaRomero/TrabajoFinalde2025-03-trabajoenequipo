@@ -12,16 +12,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Cajamusical.unity
     guid: 4bf87fa76b0720341b383e5e56464eb6
   - enabled: 1
-    path: Assets/Scenes/level2.unity
+    path: Assets/Scenes/ruletarusa.unity
     guid: 518c23314fd4a8545b285a5c39a0c8d5
   - enabled: 1
-    path: Assets/Scenes/level3.unity
+    path: Assets/Scenes/juegodecartas.unity
     guid: 2a365bd4cb817e541b2b5a61a6e3cc47
   - enabled: 1
     path: Assets/Scenes/Celda.unity
     guid: 7a6c8f6dbe9ee2d4591310bfd04c6bde
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
+    path: Assets/Scenes/escondidas.unity
     guid: 153972e36c70ab44a9e41aefd3fa81b9
   - enabled: 1
     path: Assets/Scenes/Selecciondepersonaje.unity
