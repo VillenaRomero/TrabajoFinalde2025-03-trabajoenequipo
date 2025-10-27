@@ -46,10 +46,8 @@ public class Carta3D : MonoBehaviour
         }
         transform.rotation = medio;
 
-        // Cambiar material
         rend.material = datosCarta.material;
 
-        // 2ª mitad
         tiempo = 0f;
         while (tiempo < 0.2f)
         {

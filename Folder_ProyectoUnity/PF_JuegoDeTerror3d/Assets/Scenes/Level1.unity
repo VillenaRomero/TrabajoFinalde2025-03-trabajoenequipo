@@ -20300,17 +20300,18 @@ MonoBehaviour:
   currentLife: 20
   maxLife: 20
   lifeSlider: {fileID: 218060214}
-  dashSpeed: 15
-  dashDuration: 0.2
-  dashCooldown: 1.5
+  dashMultiplier: 2
   dashStaminaCost: 25
   stamina: 100
   maxStamina: 100
   staminaRegenRate: 15
   staminaSlider: {fileID: 1747182318}
-  weapons: []
-  noiseZonePrefab: {fileID: 0}
-  noiseLifetime: 2
+  inventario:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2050469257
 GameObject:
   m_ObjectHideFlags: 0

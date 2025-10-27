@@ -4,9 +4,10 @@ using UnityEngine;
 public class BoxPlayer : MonoBehaviour
 {
     public string playerName;
-    public bool isHuman = false;
+    public bool isHuman;
     public bool isAlive = true;
     public bool hasShield = false;
+    public bool skipNextTurn = false;
 
     public Card[] hand = new Card[10];
     public int handCount = 0;
@@ -23,19 +24,8 @@ public class BoxPlayer : MonoBehaviour
     public void RemoveCard(int index)
     {
         if (index < 0 || index >= handCount) return;
-
         for (int i = index; i < handCount - 1; i++)
-        {
             hand[i] = hand[i + 1];
-        }
-
-        hand[handCount - 1] = null;
-        handCount--;
-    }
-
-    public Card GetFirstCard()
-    {
-        if (handCount > 0) return hand[0];
-        return null;
+        hand[--handCount] = null;
     }
 }
