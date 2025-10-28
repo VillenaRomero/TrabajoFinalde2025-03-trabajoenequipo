@@ -29,7 +29,6 @@ public class playermoved : MonoBehaviour
     private Vector2 moveInput;
     private Camera mainCam;
     private bool isDashing = false;
-    private bool isHiding = false;
 
     void Awake()
     {
@@ -52,11 +51,6 @@ public class playermoved : MonoBehaviour
 
     void Update()
     {
-        if (!isHiding)
-        {
-            MoveWithCameraDirection(); // jugador se mueva en la dirección en que apunta la cámara
-            PlayerLookAtMouse(); // jugador mire hacia el puntero del mouse
-        }
 
         if (Input.GetKeyDown(KeyCode.Q))
             UsarObjetoActual();
@@ -87,43 +81,6 @@ public class playermoved : MonoBehaviour
         else if (ctx.canceled)
         {
             isDashing = false;
-        }
-    }
-
-    void MoveWithCameraDirection()  // jugador se mueva en la dirección en que apunta la cámara
-    {
-        if (mainCam == null) return;
-
-        Vector3 camForward = mainCam.transform.forward;
-        Vector3 camRight = mainCam.transform.right;
-        camForward.y = 0;
-        camRight.y = 0;
-        camForward.Normalize();
-        camRight.Normalize();
-
-        Vector3 moveDir = (camForward * moveInput.y + camRight * moveInput.x).normalized;
-
-        float lifeRatio = Mathf.Clamp01((float)currentLife / maxLife);
-        float currentSpeed = speed * lifeRatio; // velocidad depende de la vida
-        if (isDashing) currentSpeed *= dashMultiplier;
-
-        transform.position += moveDir * currentSpeed * Time.deltaTime;
-    }
-
-    void PlayerLookAtMouse()//jugador mire hacia el puntero del mouse
-    {
-        Ray ray = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
-        if (plane.Raycast(ray, out float distance))
-        {
-            Vector3 hitPoint = ray.GetPoint(distance);
-            Vector3 direction = (hitPoint - transform.position);
-            direction.y = 0;
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }
         }
     }
 
