@@ -28,7 +28,7 @@ public class GameManagerPersonaje : MonoBehaviour
     public void ResetSeleccion()
     {
         personajeSeleccionadoPrefab = null;
-        Destroy(gameObject); 
-        instance = null;
+        Destroy(gameObject); //-> No tiene sentido 
+        instance = null;//-> Eliminado
     }
 }

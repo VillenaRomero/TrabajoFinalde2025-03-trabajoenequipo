@@ -83,7 +83,7 @@ public class playermoved : MonoBehaviour
             regenTimer = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))//-> NUEVO SISTEMA DE INPUTS
             UsarObjetoActual();
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -118,7 +118,7 @@ public class playermoved : MonoBehaviour
         }
     }
 
-    void HacerDash()
+    void HacerDash()//->Remover
     {
         if (stamina >= dashStaminaCost && dashTimer <= 0)
         {
@@ -165,7 +165,7 @@ public class playermoved : MonoBehaviour
         }
     }
 
-    void CambiarObjetoDerecha()
+    void CambiarObjetoDerecha()//->Desacoplar
     {
         indiceObjeto++;
         if (indiceObjeto >= inventario.Length) indiceObjeto = 0;

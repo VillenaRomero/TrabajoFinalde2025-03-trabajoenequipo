@@ -39,18 +39,16 @@ public class elegirpersonaje : MonoBehaviour
     {
         for (int i = 0; i < personajes.Length; i++)
         {
-            if (i < posiciones.Length)
+            if (i < posiciones.Length && instantaneo)
             {
-                if (instantaneo)
-                {
                     personajes[i].position = posiciones[i].position;
                     personajes[i].rotation = posiciones[i].rotation;
-                }
+             
             }
         }
     }
 
-    public void MoverDerecha()
+    public void MoverDerecha()//->Listas enlazadas :D
     {
         Transform temp = personajes[0];
         personajes[0] = personajes[1];

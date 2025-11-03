@@ -2,12 +2,14 @@
 
 public class SpawnerJugador : MonoBehaviour
 {
-    void Start()
+    void Start()//-> Demasiada anidacion
     {
         if (GameManagerPersonaje.instance != null && GameManagerPersonaje.instance.personajeSeleccionadoPrefab != null)
         {
             // Buscar el Player en la escena
-            GameObject player = GameObject.FindWithTag("Player");
+            GameObject player = GameObject.FindWithTag("Player");//-> Referencia a gameManager
+
+            if (player == null) return;
 
             if (player != null)
             {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class escenaMenu : MonoBehaviour
+public class escenaMenu : MonoBehaviour//->Mochalo
 {
     public string nombreEscena ;
 
