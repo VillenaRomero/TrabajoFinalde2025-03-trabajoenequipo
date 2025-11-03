@@ -3,8 +3,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class playermoved : MonoBehaviour
 {
+    private Rigidbody rb;
+
     [Header("Movimiento")]
-    public float speed;
+    public float speed = 5f;
     public float rotationSpeed = 10f;
 
     [Header("Vida")]
@@ -13,26 +15,29 @@ public class playermoved : MonoBehaviour
     public Slider lifeSlider;
 
     [Header("Dash")]
-    public float dashMultiplier = 2f;
-    public float dashStaminaCost = 25f;
+    public float dashForce = 10f;
+    public int dashStaminaCost = 25;
+    private bool isDashing = false;
+    private float dashCooldown = 0.5f;
+    private float dashTimer;
 
     [Header("Estamina")]
-    public float stamina = 100f;
-    public float maxStamina = 100f;
-    public float staminaRegenRate = 15f;
+    public int stamina = 100;
+    public int maxStamina = 100;
+    public float staminaRegenDelay = 2f;
+    public float staminaRegenSpeed = 10f;
     public Slider staminaSlider;
+    private float regenTimer;
 
     [Header("Inventario")]
     public GameObject[] inventario = new GameObject[5];
     private int indiceObjeto = 0;
 
     private Vector2 moveInput;
-    private Camera mainCam;
-    private bool isDashing = false;
 
     void Awake()
     {
-        mainCam = Camera.main;
+        rb = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -51,6 +56,24 @@ public class playermoved : MonoBehaviour
 
     void Update()
     {
+        MoverJugador();
+
+        if (dashTimer > 0)
+            dashTimer -= Time.deltaTime;
+
+        if (!isDashing)
+        {
+            regenTimer += Time.deltaTime;
+            if (regenTimer >= staminaRegenDelay && stamina < maxStamina)
+            {
+                stamina += (int)(staminaRegenSpeed * Time.deltaTime);
+                if (stamina > maxStamina) stamina = maxStamina;
+            }
+        }
+        else
+        {
+            regenTimer = 0;
+        }
 
         if (Input.GetKeyDown(KeyCode.Q))
             UsarObjetoActual();
@@ -61,9 +84,44 @@ public class playermoved : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
             CambiarObjetoIzquierda();
 
-        RegenerarStamina();
         UpdateStaminaUI();
         UpdateLifeUI();
+
+        // Dash con tecla Shift
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            HacerDash();
+    }
+
+    void MoverJugador()
+    {
+        Vector3 moveDir = new Vector3(moveInput.x, 0, moveInput.y);
+
+        if (moveDir.sqrMagnitude > 0.01f)
+        {
+            Vector3 move = moveDir.normalized * speed;
+            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+
+            Quaternion rot = Quaternion.LookRotation(moveDir);
+            rb.rotation = Quaternion.Lerp(rb.rotation, rot, rotationSpeed * Time.deltaTime);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+        }
+    }
+
+    void HacerDash()
+    {
+        if (stamina >= dashStaminaCost && dashTimer <= 0)
+        {
+            isDashing = true;
+            stamina -= dashStaminaCost;
+            dashTimer = dashCooldown;
+
+            rb.AddForce(transform.forward * dashForce, ForceMode.VelocityChange);
+
+            isDashing = false;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
@@ -71,24 +129,11 @@ public class playermoved : MonoBehaviour
         moveInput = ctx.ReadValue<Vector2>();
     }
 
-    public void OnDash(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed && stamina >= dashStaminaCost)
-        {
-            isDashing = true;
-            stamina -= dashStaminaCost * Time.deltaTime;
-        }
-        else if (ctx.canceled)
-        {
-            isDashing = false;
-        }
-    }
-
     void RegenerarStamina()
     {
         if (!isDashing && stamina < maxStamina)
         {
-            stamina += staminaRegenRate * Time.deltaTime;
+            stamina += (int)(staminaRegenSpeed * Time.deltaTime);
             if (stamina > maxStamina) stamina = maxStamina;
         }
     }
@@ -110,10 +155,6 @@ public class playermoved : MonoBehaviour
             inventario[indiceObjeto].SetActive(true);
             Debug.Log("Usando: " + inventario[indiceObjeto].name);
         }
-        else
-        {
-            Debug.Log("No hay objeto");
-        }
     }
 
     void CambiarObjetoDerecha()
@@ -123,8 +164,7 @@ public class playermoved : MonoBehaviour
 
         if (inventario[indiceObjeto] != null)
             Debug.Log("Objeto: " + inventario[indiceObjeto].name);
-        else
-            Debug.Log("Objeto: vacío");
+      
     }
 
     void CambiarObjetoIzquierda()
@@ -134,8 +174,7 @@ public class playermoved : MonoBehaviour
 
         if (inventario[indiceObjeto] != null)
             Debug.Log("Objeto: " + inventario[indiceObjeto].name);
-        else
-            Debug.Log("Objeto: vacío");
+        
     }
 
     private void OnTriggerEnter(Collider other)

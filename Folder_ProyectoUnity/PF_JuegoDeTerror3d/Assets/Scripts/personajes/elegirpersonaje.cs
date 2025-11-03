@@ -30,8 +30,7 @@ public class elegirpersonaje : MonoBehaviour
             if (i < posiciones.Length)
             {
                 personajes[i].position = Vector3.Lerp(personajes[i].position, posiciones[i].position, Time.deltaTime * velocidadMovimiento);
-               
-                personajes[i].rotation = Quaternion.Lerp(personajes[i].rotation,posiciones[i].rotation,Time.deltaTime * velocidadMovimiento);
+                personajes[i].rotation = Quaternion.Lerp(personajes[i].rotation, posiciones[i].rotation, Time.deltaTime * velocidadMovimiento);
             }
         }
     }
@@ -73,19 +72,18 @@ public class elegirpersonaje : MonoBehaviour
         ActualizarTexto();
     }
 
-    public void SeleccionarPersonaje(string name)
+    public void SeleccionarPersonaje(string nombreEscena)
     {
         Transform seleccionado = personajes[1]; // El del centro
-        Debug.Log(" Seleccionaste a: " + seleccionado.name);
+        Debug.Log("Seleccionaste a: " + seleccionado.name);
 
         if (textoSeleccion != null)
             textoSeleccion.text = "Seleccionado: " + seleccionado.name;
 
-        // Guardar selección global (si tienes un GameManager)
-        if (GameManager.instance != null)
-            GameManager.instance.SetPersonaje(seleccionado);
-        SceneManager.LoadScene(name);
-        
+        if (GameManagerPersonaje.instance != null)
+            GameManagerPersonaje.instance.SetPersonaje(seleccionado);
+
+        SceneManager.LoadScene(nombreEscena);
     }
 
     public void ActualizarTexto()
