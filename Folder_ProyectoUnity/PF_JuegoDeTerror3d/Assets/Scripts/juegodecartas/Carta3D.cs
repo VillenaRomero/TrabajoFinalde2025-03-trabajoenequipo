@@ -37,7 +37,7 @@ public class Carta3D : MonoBehaviour
         Quaternion medio = inicio * Quaternion.Euler(0, 90, 0);
         Quaternion final = inicio * Quaternion.Euler(0, 180, 0);
 
-        // 1ª mitad
+        // 1 mitad
         while (tiempo < 0.2f)
         {
             transform.rotation = Quaternion.Slerp(inicio, medio, tiempo / 0.2f);
