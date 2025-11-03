@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class VolverAlMenu : MonoBehaviour
+public class VolverAlMenu : MonoBehaviour//->remover creo (villena)
 {
     [SerializeField] private string nombreEscenaMenu = "MenuPrincipal";
 

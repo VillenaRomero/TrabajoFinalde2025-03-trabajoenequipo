@@ -977,6 +977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1665126250}
   - component: {fileID: 1665126249}
+  - component: {fileID: 1665126251}
   m_Layer: 0
   m_Name: datosdeplayer
   m_TagString: Untagged
@@ -1012,6 +1013,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1665126251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665126248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0151074459b57e7488b7b104827da01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1822170591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,11 +1240,12 @@ MonoBehaviour:
   currentLife: 20
   maxLife: 20
   lifeSlider: {fileID: 0}
-  dashMultiplier: 2
+  dashForce: 10
   dashStaminaCost: 25
   stamina: 100
   maxStamina: 100
-  staminaRegenRate: 15
+  staminaRegenDelay: 2
+  staminaRegenSpeed: 10
   staminaSlider: {fileID: 0}
   inventario:
   - {fileID: 0}
@@ -1236,6 +1253,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  enableMovement: 1
+  <moveSpeed>k__BackingField: 5
+  cameraTransform: {fileID: 0}
 --- !u!1 &1906341240
 GameObject:
   m_ObjectHideFlags: 0

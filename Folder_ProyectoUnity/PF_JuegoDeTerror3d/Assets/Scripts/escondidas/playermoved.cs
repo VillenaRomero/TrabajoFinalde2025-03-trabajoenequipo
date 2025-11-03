@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-public class playermoved : MonoBehaviour
+public class Playermoved : MonoBehaviour
 {
     private Rigidbody rb;
 
@@ -32,14 +32,6 @@ public class playermoved : MonoBehaviour
     [Header("Inventario")]
     public GameObject[] inventario = new GameObject[5];
     private int indiceObjeto = 0;
-
-
-    [Header("Movement Settings")]
-    [SerializeField] private bool enableMovement = true;
-    [field: SerializeField] public float moveSpeed { get; private set; } = 5f;
-
-    [Header("References")]
-    [SerializeField] private Transform cameraTransform;
 
     private Vector2 moveInput;
 

@@ -40,7 +40,7 @@ public class Basepersonajes//-> Reformular
 
     }
 
-    protected virtual void Update()
+    protected virtual void Update()//-> arreglarlo
     {
         if (detenido)
         {

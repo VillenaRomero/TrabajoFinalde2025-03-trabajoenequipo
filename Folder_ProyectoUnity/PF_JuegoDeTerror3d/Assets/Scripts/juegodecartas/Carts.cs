@@ -1,13 +1,13 @@
 using UnityEngine;
 public enum Palo { Corazon, Trebol, Espada, Rubi }
 
-public class cartas : MonoBehaviour
+public class Carts : MonoBehaviour
 {
     public Palo palo;
     public int valor;
     public Material material;
 
-    public cartas(Palo palo, int valor, Material material)
+    public Carts(Palo palo, int valor, Material material)
     {
         this.palo = palo;
         this.valor = valor;

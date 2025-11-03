@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class FNAFCameraController : MonoBehaviour//>-> cambiale el nombrer
+public class CameraController : MonoBehaviour//>-> cambiale el nombrer
 {
     [Header("Cámara principal (única del juego)")]
     public Camera mainCamera;
@@ -42,6 +43,7 @@ public class FNAFCameraController : MonoBehaviour//>-> cambiale el nombrer
             }
         }
     }
+    
 
     public void GoToCamera(int index)
     {
@@ -62,6 +64,23 @@ public class FNAFCameraController : MonoBehaviour//>-> cambiale el nombrer
         {
             mainCamera.transform.position = playerView.position;
             mainCamera.transform.rotation = playerView.rotation;
+        }
+    }
+    public void OnCamera(InputAction.CallbackContext context) {
+
+        if (context.performed)
+        {
+            isFnafMode = !isFnafMode;
+
+            if (isFnafMode)
+            {
+                fnafUIPanel.SetActive(true);
+            }
+            else
+            {
+                fnafUIPanel.SetActive(false);
+                VolverAVistaJugador();
+            }
         }
     }
 }

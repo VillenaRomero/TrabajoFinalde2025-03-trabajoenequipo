@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class lucesdemenu : MonoBehaviour
+public class LightMenu : MonoBehaviour
 {
 
     public Light light3D;
@@ -15,7 +15,7 @@ public class lucesdemenu : MonoBehaviour
 
     public TMP_Text[] textostmpo;
     public Color color;
-   
+
     void Start()
     {
         if (light3D == null)
@@ -23,8 +23,12 @@ public class lucesdemenu : MonoBehaviour
         color.a = 10f;
     }
 
-    void Update()//-> No impletacion solo llamada a metodos
+    void Update()
     {
+        Efectlight();
+        
+    }
+    void Efectlight(){
         timer += Time.deltaTime;
 
         if (timer >= flickerSpeed)

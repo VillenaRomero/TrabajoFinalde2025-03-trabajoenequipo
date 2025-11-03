@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Carta3D : MonoBehaviour
+public class Carts3D : MonoBehaviour
 {
     public cartas datosCarta;
     public Material reversoMaterial;

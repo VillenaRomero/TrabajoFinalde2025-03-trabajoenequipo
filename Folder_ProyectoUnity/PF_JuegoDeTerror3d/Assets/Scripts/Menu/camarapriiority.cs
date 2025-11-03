@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class camarapriiority : MonoBehaviour //->Refactorizalo con colas y el sistema debe estar en game maanger
+public class Camarapriiority : MonoBehaviour //->Refactorizalo con colas y el sistema debe estar en game maanger
 {
     public CinemachineCamera currentCamera;
     void Start()
