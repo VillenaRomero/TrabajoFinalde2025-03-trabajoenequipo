@@ -23,7 +23,7 @@ public class lucesdemenu : MonoBehaviour
         color.a = 10f;
     }
 
-    void Update()
+    void Update()//-> No impletacion solo llamada a metodos
     {
         timer += Time.deltaTime;
 

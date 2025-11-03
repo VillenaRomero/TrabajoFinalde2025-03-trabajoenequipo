@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DatosJugador : MonoBehaviour
+public class DatosJugador : MonoBehaviour//->vuelan
 {
     [Header("Modelo del personaje activo")]
     public GameObject modeloActual;

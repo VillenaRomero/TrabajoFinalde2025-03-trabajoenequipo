@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoorMover : MonoBehaviour
+public class DoorMover : MonoBehaviour//->Uso de feel
 {
     [SerializeField] private Transform openPosition;
     [SerializeField] private Transform closedPosition;

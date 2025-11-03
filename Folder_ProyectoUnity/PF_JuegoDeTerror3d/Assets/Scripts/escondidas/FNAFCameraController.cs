@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class FNAFCameraController : MonoBehaviour
+public class FNAFCameraController : MonoBehaviour//>-> cambiale el nombrer
 {
     [Header("Cámara principal (única del juego)")]
     public Camera mainCamera;
 
     [Header("Posiciones FNAF (dónde estará la cámara)")]
-    public Transform[] cameraPositions;
+    public Transform[] cameraPositions;//-> lista doble enlazada
 
     [Header("Direcciones FNAF (hacia dónde mira la cámara)")]
     public Transform[] cameraDirections;
@@ -27,7 +27,7 @@ public class FNAFCameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))//-> nuevo sistema de input
         {
             isFnafMode = !isFnafMode;
 

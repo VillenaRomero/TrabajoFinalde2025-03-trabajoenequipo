@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class Basepersonajes
+public class Basepersonajes//-> Reformular 
 {
     protected int vida = 10;
     protected int velocidad = 10;
@@ -22,7 +22,7 @@ public class Basepersonajes
 
     }
     
-    public virtual void Disparado(int daño)
+    public virtual void Disparado(int daño)//->remuval por linterna
     {
         if (daño > 0)
         {
@@ -34,7 +34,7 @@ public class Basepersonajes
             temporizador = 0f;
         }
     }
-    public virtual void Reparar() {
+    public virtual void Reparar() {//->Pilas
 
         reparar = true;
 

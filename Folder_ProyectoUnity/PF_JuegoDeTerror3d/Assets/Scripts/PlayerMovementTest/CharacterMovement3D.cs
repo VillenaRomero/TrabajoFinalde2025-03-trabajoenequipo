@@ -1,5 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+[Serializable]
+public class MovementSettings
+{
+
+}
 
 [RequireComponent(typeof(Rigidbody))]
 public class CharacterMovement3D : MonoBehaviour
@@ -7,6 +14,7 @@ public class CharacterMovement3D : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private bool enableMovement = true;
     [field: SerializeField] public float moveSpeed { get; private set; } = 5f;
+    
 
     [Header("References")]
     [SerializeField] private Transform cameraTransform;

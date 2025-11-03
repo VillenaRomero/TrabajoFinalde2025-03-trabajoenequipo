@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour//->SceneController
 {
     public static LevelManager Instance;
 
@@ -48,7 +48,10 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene("Nivel1");
     }
-
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
     public void ResetProgress()
     {
         nextLevelIndex = 2;
