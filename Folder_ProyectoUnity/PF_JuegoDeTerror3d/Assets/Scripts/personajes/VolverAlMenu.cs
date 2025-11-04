@@ -7,10 +7,10 @@ public class VolverAlMenu : MonoBehaviour//->remover creo (villena)
 
     public void IrAlMenu()
     {
-        if (GameManagerPersonaje.instance != null)
+       /* if (GameManagerPersonaje.instance != null)
         {
             GameManagerPersonaje.instance.ResetSeleccion();
-        }
+        }*/
 
         SceneManager.LoadScene(nombreEscenaMenu);
     }

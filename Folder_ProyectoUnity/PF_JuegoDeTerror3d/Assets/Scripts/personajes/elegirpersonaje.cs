@@ -78,8 +78,8 @@ public class elegirpersonaje : MonoBehaviour
         if (textoSeleccion != null)
             textoSeleccion.text = "Seleccionado: " + seleccionado.name;
 
-        if (GameManagerPersonaje.instance != null)
-            GameManagerPersonaje.instance.SetPersonaje(seleccionado);
+        /*if (GameManagerPersonaje.instance != null)
+            GameManagerPersonaje.instance.SetPersonaje(seleccionado);*/
 
         SceneManager.LoadScene(nombreEscena);
     }

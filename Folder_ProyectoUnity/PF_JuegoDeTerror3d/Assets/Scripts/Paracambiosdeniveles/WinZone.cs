@@ -6,7 +6,7 @@ public class WinZone : MonoBehaviour//->Mochar
     {
         if (other.CompareTag("Player"))
         {
-            LevelManager.Instance.WinLevel();
+            SceneController.Instance.WinLevel();
         }
     }
 }

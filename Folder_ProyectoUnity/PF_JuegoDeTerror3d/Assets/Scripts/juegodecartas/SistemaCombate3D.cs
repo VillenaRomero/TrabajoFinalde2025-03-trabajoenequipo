@@ -15,18 +15,18 @@ public class SistemaCombate3D : MonoBehaviour
     public Text vidaJugadorText;
     public Text vidaEnemigoText;
 
-    private cartas[] cartasJugador;
-    private cartas[] cartasEnemigo;
-    private Carta3D[] cartasObjJugador;
-    private Carta3D[] cartasObjEnemigo;
+    private Carts[] cartasJugador;
+    private Carts[] cartasEnemigo;
+    private Carts3D[] cartasObjJugador;
+    private Carts3D[] cartasObjEnemigo;
 
     private int vidaJugador = 5;
     private int vidaEnemigo = 5;
     private int rondasCompletas = 0;
     private bool turnoJugador = true;
 
-    private cartas cartaAtacante;
-    private cartas cartaDefensora;
+    private Carts cartaAtacante;
+    private Carts cartaDefensora;
     private int indexAtacante;
     private int indexDefensor;
 
@@ -37,27 +37,27 @@ public class SistemaCombate3D : MonoBehaviour
 
     void IniciarJuego()
     {
-        cartasJugador = new cartas[cantidadCartas];
-        cartasEnemigo = new cartas[cantidadCartas];
-        cartasObjJugador = new Carta3D[cantidadCartas];
-        cartasObjEnemigo = new Carta3D[cantidadCartas];
+        cartasJugador = new Carts[cantidadCartas];
+        cartasEnemigo = new Carts[cantidadCartas];
+        cartasObjJugador = new Carts3D[cantidadCartas];
+        cartasObjEnemigo = new Carts3D[cantidadCartas];
 
-        cartas[] baraja = CrearBaraja();
+        Carts[] baraja = CrearBaraja();
         RepartirCartas(baraja);
         MostrarCartasOcultas();
         ActualizarUI();
         textoEstado.text = "Tu turno: Ataca";
     }
 
-    cartas[] CrearBaraja()
+    Carts[] CrearBaraja()
     {
-        cartas[] baraja = new cartas[52];
+        Carts[] baraja = new Carts[52];
         int index = 0;
         for (int palo = 0; palo < 4; palo++)
         {
             for (int valor = 1; valor <= 13; valor++)
             {
-                baraja[index] = new cartas((Palo)palo, valor, materialesCartas[index]);
+                baraja[index] = new Carts((Palo)palo, valor, materialesCartas[index]);
                 index++;
             }
         }
@@ -65,7 +65,7 @@ public class SistemaCombate3D : MonoBehaviour
         for (int i = 0; i < 52; i++)
         {
             int r = Random.Range(0, 52);
-            cartas temp = baraja[i];
+            Carts temp = baraja[i];
             baraja[i] = baraja[r];
             baraja[r] = temp;
         }
@@ -73,7 +73,7 @@ public class SistemaCombate3D : MonoBehaviour
         return baraja;
     }
 
-    void RepartirCartas(cartas[] baraja)
+    void RepartirCartas(Carts[] baraja)
     {
         for (int i = 0; i < cantidadCartas; i++)
         {
@@ -91,10 +91,10 @@ public class SistemaCombate3D : MonoBehaviour
         }
     }
 
-    Carta3D CrearCarta(int index, Transform zona, cartas datos, bool esJugador)
+    Carts3D CrearCarta(int index, Transform zona, Carts datos, bool esJugador)
     {
         GameObject carta = Instantiate(cartaPrefab, zona);
-        Carta3D c3d = carta.GetComponent<Carta3D>();
+        Carts3D c3d = carta.GetComponent<Carts3D>();
         c3d.ConfigurarCarta(datos, reversoMaterial);
 
         if (esJugador)

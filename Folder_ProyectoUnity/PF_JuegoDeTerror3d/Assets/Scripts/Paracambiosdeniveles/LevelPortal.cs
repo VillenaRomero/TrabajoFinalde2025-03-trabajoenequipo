@@ -6,7 +6,7 @@ public class LevelPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LevelManager.Instance.GoToNextLevel();
+            SceneController.Instance.GoToNextLevel();
         }
     }
 }

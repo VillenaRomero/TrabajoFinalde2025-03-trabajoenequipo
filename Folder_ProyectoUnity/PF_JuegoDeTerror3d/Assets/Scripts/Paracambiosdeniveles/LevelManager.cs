@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour//->SceneController
+public class SceneController : MonoBehaviour//->SceneController
 {
-    public static LevelManager Instance;
+    public static SceneController Instance;
 
     [Header("Configuración de Niveles")]
     [SerializeField] private int totalLevels = 5; 

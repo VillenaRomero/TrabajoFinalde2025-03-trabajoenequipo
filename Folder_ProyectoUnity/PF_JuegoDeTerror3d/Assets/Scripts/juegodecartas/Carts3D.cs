@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Carts3D : MonoBehaviour
 {
-    public cartas datosCarta;
+    public Carts datosCarta;
     public Material reversoMaterial;
     private MeshRenderer rend;
     private bool revelada = false;
@@ -14,7 +14,7 @@ public class Carts3D : MonoBehaviour
         rend.material = reversoMaterial;
     }
 
-    public void ConfigurarCarta(cartas carta, Material reverso)
+    public void ConfigurarCarta(Carts carta, Material reverso)
     {
         datosCarta = carta;
         reversoMaterial = reverso;
