@@ -11,14 +11,14 @@ public class FirstPersonCameraController : MonoBehaviour
     private float xRotation = 0f;
     private Vector2 _lookInput;
 
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        _lookInput = context.ReadValue<Vector2>();
-    }
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        _lookInput = context.ReadValue<Vector2>();
     }
 
     private void Update()

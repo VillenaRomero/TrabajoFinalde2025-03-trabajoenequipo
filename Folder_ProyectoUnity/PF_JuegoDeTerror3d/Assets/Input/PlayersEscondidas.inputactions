@@ -34,13 +34,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CameraLook",
-                    "type": "Value",
-                    "id": "f954bf7c-bc9b-48a4-9286-f13a1bd85f23",
-                    "expectedControlType": "Vector2",
+                    "name": "Camerasystem",
+                    "type": "Button",
+                    "id": "c919863e-b965-4fa6-9e4c-ce54e8485e3a",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "XMovement",
@@ -70,22 +70,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "Crouch",
                     "type": "Button",
-                    "id": "f741949d-4b21-43d6-a275-1a0177e8b13c",
+                    "id": "72480050-0575-44d0-ac73-b78d980a33fa",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Camerasystem",
-                    "type": "Button",
-                    "id": "c919863e-b965-4fa6-9e4c-ce54e8485e3a",
-                    "expectedControlType": "",
+                    "name": "CameraLook",
+                    "type": "Value",
+                    "id": "f954bf7c-bc9b-48a4-9286-f13a1bd85f23",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -178,6 +178,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "2db4afdf-56e3-4803-9c5d-3b36daa0fa60",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CameraLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "556e19f8-5d75-4b7b-aa5c-4f7297267948",
                     "path": "1DAxis",
@@ -200,12 +211,34 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "negative",
+                    "id": "62e249e2-72f6-4879-856c-619a65740b6e",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "XMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "positive",
                     "id": "9ff9108f-2257-4a38-a59e-afad9a0b75da",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and mouse",
+                    "action": "XMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2bfbc74a-3ca6-41bb-aa70-e88dfe39eb27",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "XMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -233,12 +266,34 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "negative",
+                    "id": "65497c50-df84-4588-9d6e-8771ba9fdd6b",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ZMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "positive",
                     "id": "30347a06-3a73-4b13-a60d-053f48b975d2",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and mouse",
+                    "action": "ZMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "5533395b-47a5-4985-8421-6e2ef4da0b10",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "ZMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -256,12 +311,34 @@
                 },
                 {
                     "name": "",
-                    "id": "27aee328-f942-49fc-9197-d21fbe6a5de8",
-                    "path": "<Keyboard>/space",
+                    "id": "a87232c6-49a4-40aa-b35a-93ae2f94ed50",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f2beb67-9a16-4033-bf5c-56a808b75441",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and mouse",
-                    "action": "Jump",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a47b5c09-a92c-4144-9cf7-68d81f4192ae",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -291,6 +368,17 @@
                 },
                 {
                     "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
                     "isOptional": false,
                     "isOR": false
                 }
