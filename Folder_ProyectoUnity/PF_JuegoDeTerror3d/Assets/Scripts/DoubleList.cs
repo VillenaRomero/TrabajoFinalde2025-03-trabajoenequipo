@@ -4,60 +4,45 @@ public class DoubleList<T>
 {
     public Node<T> Head = null;
     public Node<T> Tail = null;
-    public int Count;
-
+    public int Count = 0;
     public virtual void AddNode(T dato)
     {
         Node<T> newNode = new Node<T>(dato);
-        #region Caso de primer elemento
-        if (Head == null && Tail == null)
+
+        if (Head == null)
         {
             Head = newNode;
             Tail = newNode;
-            Count++;
-            return;
         }
-        #endregion
-        #region Case de dos a mas elementos
-        if (Head != null)
+        else
         {
-            newNode.SetNext(Head);
-            Head.SetPrev(newNode);
-
-            Head = newNode;
-            Count++;
+            Tail.SetNext(newNode);
+            newNode.SetPrev(Tail);
+            Tail = newNode;
         }
-        #endregion
+
+        Count++;
     }
+
     public Node<T> Find(T target, Node<T> start, int depth = 1000)
     {
         if (start == null || depth <= 0) return null;
-
-        if (start.Value.Equals(target))
-        {
-            return start;
-        }
-
-
+        if (start.Value.Equals(target)) return start;
         return Find(target, start.Next, depth - 1);
     }
+
     public void ReadForward(Node<T> value, int depth = 1000)
     {
         if (value == null || depth <= 0) return;
-
         Debug.Log(value.Value.ToString());
-
-        if (value.Next != null)
-            ReadForward(value.Next, depth - 1);
+        ReadForward(value.Next, depth - 1);
     }
+
     public void ReadBackward(Node<T> value, int depth = 1000)
     {
         if (value == null || depth <= 0) return;
-
         Debug.Log(value.Value.ToString());
-
-        if (value.Prev != null)
-            ReadBackward(value.Prev, depth - 1);
+        ReadBackward(value.Prev, depth - 1);
     }
 
     public void InsertAfter(T target, Node<T> value)
@@ -65,59 +50,39 @@ public class DoubleList<T>
         Node<T> temp = Find(target, Head);
         if (temp == null)
         {
-            Debug.LogError("NULLO");
+            Debug.LogError("InsertAfter: No se encontró el nodo objetivo.");
             return;
         }
+
+        value.SetNext(temp.Next);
+        value.SetPrev(temp);
+
         if (temp.Next != null)
-        {
-            value.SetNext(temp.Next);
-            value.SetPrev(temp);
-
             temp.Next.SetPrev(value);
-            temp.SetNext(value);
-
-        }
         else
-        {
-            value.SetPrev(temp);
-            value.SetNext(null);
-
-            temp.SetNext(value);
-
             Tail = value;
-        }
 
+        temp.SetNext(value);
+        Count++;
     }
+
     public void Delete(T target)
     {
-        if (Head.Value.Equals(target))
-        {
-            Head = Head.Next;
-            Head.Prev.SetNext(null);
-            Head.SetPrev(null);
-
-            Count--;
-            return;
-        }
-        if (Tail.Value.Equals(target))
-        {
-            Tail = Tail.Prev;
-            Tail.Next.SetPrev(null);
-            Tail.SetNext(null);
-
-            Count--;
-            return;
-
-        }
         Node<T> temp = Find(target, Head);
         if (temp == null) return;
 
-        temp.Prev.SetNext(temp.Next);
-        temp.Next.SetPrev(temp.Prev);
+        if (temp.Prev != null)
+            temp.Prev.SetNext(temp.Next);
+        else
+            Head = temp.Next;
+
+        if (temp.Next != null)
+            temp.Next.SetPrev(temp.Prev);
+        else
+            Tail = temp.Prev;
 
         temp.SetNext(null);
         temp.SetPrev(null);
-
         Count--;
     }
 }
