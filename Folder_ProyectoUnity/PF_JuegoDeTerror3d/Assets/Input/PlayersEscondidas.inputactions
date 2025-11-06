@@ -86,6 +86,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Cameranext",
+                    "type": "Button",
+                    "id": "bc899eef-a7d4-488f-aabf-3a693c6901ea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CameraPrev",
+                    "type": "Button",
+                    "id": "87d15c02-1078-4a5c-822c-f5753c98595c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -350,6 +368,28 @@
                     "processors": "",
                     "groups": ";Keyboard and mouse",
                     "action": "Camerasystem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4535c233-f793-4814-8b24-14f8e6d03b10",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard and mouse",
+                    "action": "Cameranext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "556d0663-3475-4f36-a6d9-08c9a3a7a506",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard and mouse",
+                    "action": "CameraPrev",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

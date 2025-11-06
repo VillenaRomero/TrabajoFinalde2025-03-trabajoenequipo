@@ -1,21 +1,22 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("C·mara principal (˙nica del juego)")]
+    [Header("C√°mara principal (√∫nica del juego)")]
     public Camera mainCamera;
 
-    [Header("Posiciones FNAF (dÛnde estar· la c·mara)")]
+    [Header("Posiciones FNAF (d√≥nde estar√° la c√°mara)")]
     public Transform[] cameraPositions;//-> lista doble enlazada
 
-    [Header("Direcciones FNAF (hacia dÛnde mira la c·mara)")]
+    [Header("Direcciones FNAF (hacia d√≥nde mira la c√°mara)")]
     public Transform[] cameraDirections;
 
-    [Header("Vista del jugador (posiciÛn y rotaciÛn normal)")]
+    [Header("Vista del jugador (posici√≥n y rotaci√≥n normal)")]
     public Transform playerView;
 
-    [Header("Panel de UI para c·maras FNAF")]
+    [Header("Panel de UI para c√°maras FNAF")]
     public GameObject fnafUIPanel;
 
     private bool isFnafMode = false;
@@ -29,7 +30,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
     }
-    
+
 
     public void GoToCamera(int index)
     {
