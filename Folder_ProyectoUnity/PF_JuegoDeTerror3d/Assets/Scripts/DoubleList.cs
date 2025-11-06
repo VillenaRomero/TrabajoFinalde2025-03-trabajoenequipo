@@ -50,7 +50,7 @@ public class DoubleList<T>
         Node<T> temp = Find(target, Head);
         if (temp == null)
         {
-            Debug.LogError("InsertAfter: No se encontró el nodo objetivo.");
+            Debug.LogError(" No se encontró el nodo objetivo.");
             return;
         }
 

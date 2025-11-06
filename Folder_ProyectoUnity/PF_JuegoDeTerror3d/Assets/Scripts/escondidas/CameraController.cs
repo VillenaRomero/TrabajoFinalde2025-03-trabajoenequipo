@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
     {
         if (cameraPositions == null || cameraPositions.Length == 0)
         {
-            Debug.LogError("❌ No hay posiciones de cámara asignadas.");
+            Debug.LogError(" No hay posiciones de cámara asignadas.");
             return;
         }
 
