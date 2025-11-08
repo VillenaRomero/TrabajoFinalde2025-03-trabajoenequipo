@@ -6,6 +6,7 @@ TagManager:
   tags:
   - vidrio
   - enemigo
+  - CrouchZone
   layers:
   - Default
   - TransparentFX

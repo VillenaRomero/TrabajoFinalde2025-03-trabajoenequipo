@@ -27,6 +27,7 @@ public class PlayerMovementStateHandler : MonoBehaviour
         else if (state == MovementState.Crouching && _pc.enableCrouch)
         {
             _pc.SetMoveSpeed(_pc.crouchSpeed); 
+
         }
         else
         {

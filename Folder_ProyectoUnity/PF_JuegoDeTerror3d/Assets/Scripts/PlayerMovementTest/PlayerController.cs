@@ -35,10 +35,24 @@ public class PlayerController : MonoBehaviour
 
     public static event Action<MovementState> OnMovementChange;
 
+    [SerializeField] private CapsuleCollider TopCollider;
+
     private void Awake()
     {
         _playerRB = GetComponent<Rigidbody>();
         _actualSpeed = normalSpeed;
+    }
+
+    private void Update()
+    {
+        if (_currentMovementState == MovementState.Crouching)
+        {
+            TopCollider.isTrigger = true;
+        }
+        else
+        {
+            TopCollider.isTrigger = false;
+        }
     }
 
     public void SetInputX(float inputX)
@@ -62,6 +76,15 @@ public class PlayerController : MonoBehaviour
         {
             _currentMovementState = newState;
             OnMovementChange?.Invoke(_currentMovementState);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("CrouchZone"))
+        {
+            TopCollider.isTrigger = true;
+            SetMovementState(MovementState.Crouching);
         }
     }
 }
