@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     [Header("UI del modo FNAF")]
     public GameObject fnafUIPanel;
-    public TextMeshProUGUI cameraNameText;
+    public TMP_Text cameraNameText;
 
     private bool isFnafMode = false;
 

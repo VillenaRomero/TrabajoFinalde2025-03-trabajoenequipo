@@ -10627,7 +10627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &472655754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22048,9 +22048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledDoors:
   - {fileID: 817055303}
-  buttonImage: {fileID: 754755476}
-  openColor: {r: 0, g: 1, b: 0, a: 1}
-  closedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1415937552
 Transform:
   m_ObjectHideFlags: 0
@@ -30884,6 +30881,8 @@ MonoBehaviour:
   mouseSensitivity: 0.25
   gamepadSensitivity: 80
   playerBody: {fileID: 5455562872157228451}
+  normalCinemachineCamera: {fileID: 0}
+  crouchCinemachineCamera: {fileID: 0}
 --- !u!114 &8432761673547652594
 MonoBehaviour:
   m_ObjectHideFlags: 0
