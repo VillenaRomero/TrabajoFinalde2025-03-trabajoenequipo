@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour // <- arreglar todo esto
 {
     [Header("Cámara principal (única del juego)")]
     public Camera mainCamera;
