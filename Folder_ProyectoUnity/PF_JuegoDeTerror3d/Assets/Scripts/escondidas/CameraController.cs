@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
+
+public class CameraInfo {
+
+    public Transform Position;
+    public Transform Direction;
+    public int index;
+}
 
 public class CameraController : MonoBehaviour // <- arreglar todo esto
 {
@@ -25,12 +33,19 @@ public class CameraController : MonoBehaviour // <- arreglar todo esto
     private DoubleList<Transform> positionList = new DoubleList<Transform>();
     private DoubleList<Transform> directionList = new DoubleList<Transform>();
 
+    private DoubleList<CameraInfo> NewDirectionlist = new DoubleList<CameraInfo>();
+    private CameraInfo currentCameraInfo;
+
     private Node<Transform> currentPosNode;
     private Node<Transform> currentDirNode;
     private int currentIndex = 0;
 
     void Start()
     {
+        Camerasituation();
+    }
+
+    public void Camerasituation() { 
         if (cameraPositions == null || cameraPositions.Length == 0)
         {
             Debug.LogError(" No hay posiciones de cámara asignadas.");
@@ -44,6 +59,15 @@ public class CameraController : MonoBehaviour // <- arreglar todo esto
                 directionList.AddNode(cameraDirections[i]);
             else
                 directionList.AddNode(null);
+
+            CameraInfo cameraInfo = new CameraInfo();
+
+            cameraInfo.Position = cameraPositions[i];
+            cameraInfo.Direction = cameraDirections[i];
+            cameraInfo.index = i;
+
+
+            NewDirectionlist.AddNode(cameraInfo);
         }
 
         currentPosNode = positionList.Head;
@@ -92,6 +116,20 @@ public class CameraController : MonoBehaviour // <- arreglar todo esto
 
         currentIndex = index;
         UpdateCameraText();
+    }
+    public void GoNext() {
+        if (currentCameraInfo == null) {
+           currentCameraInfo = NewDirectionlist.Head.Value;
+        }
+
+        //Camera.main.transform = currentCameraInfo.Position;
+    }
+
+    public void GoPrev() { 
+    
+    }
+    public void GotoiNDEX(int Index) { 
+    
     }
 
     public void OnCamera(InputAction.CallbackContext context)
