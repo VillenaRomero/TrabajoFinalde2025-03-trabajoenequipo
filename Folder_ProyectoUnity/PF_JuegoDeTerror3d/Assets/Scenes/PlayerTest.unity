@@ -1093,7 +1093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867bfcf44919cf74a9600bda7f34878a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fpcc: {fileID: 8108669088836934257}
+  fpccNormal: {fileID: 8108669088836934257}
+  fpccCrouch: {fileID: 1865059509}
 --- !u!114 &1318751881
 MonoBehaviour:
   m_ObjectHideFlags: 0

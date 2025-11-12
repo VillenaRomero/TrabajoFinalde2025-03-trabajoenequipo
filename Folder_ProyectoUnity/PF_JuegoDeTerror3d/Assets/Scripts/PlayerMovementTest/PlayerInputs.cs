@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
-    [SerializeField] private FirstPersonCameraController fpcc;
+    [SerializeField] private FirstPersonCameraController fpccNormal;
+    [SerializeField] private FirstPersonCameraController fpccCrouch;
     private PlayerController _pc;
     private GameInputs _gameInputs;
 
@@ -21,6 +22,7 @@ public class PlayerInputs : MonoBehaviour
         RegisterAction(_gameInputs.Player.Run, OnCharacterRun);
         RegisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
         RegisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
+        PlayerController.OnCrouchZoneExit += OnCrouchZoneExit;
     }
 
     private void OnDisable()
@@ -30,6 +32,7 @@ public class PlayerInputs : MonoBehaviour
         UnregisterAction(_gameInputs.Player.Run, OnCharacterRun);
         UnregisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
         UnregisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
+        PlayerController.OnCrouchZoneExit -= OnCrouchZoneExit;
     }
 
     private void RegisterAction(InputAction action, Action<InputAction.CallbackContext> callback)
@@ -50,21 +53,28 @@ public class PlayerInputs : MonoBehaviour
     {
         _pc.SetMovementInput(context.ReadValue<Vector2>());
     }
-    public void OnCharacterRun(InputAction.CallbackContext context)
+    private void OnCharacterRun(InputAction.CallbackContext context)
     {
         UpdateMovementState();
     }
-    public void OnCharacterCrouch(InputAction.CallbackContext context)
+    private void OnCharacterCrouch(InputAction.CallbackContext context)
     {
         UpdateMovementState();
     }
-    public void OnCameraLook(InputAction.CallbackContext context)
+    private void OnCameraLook(InputAction.CallbackContext context)
     {
-        fpcc.SetLookInput(context.ReadValue<Vector2>());
+        fpccNormal.SetLookInput(context.ReadValue<Vector2>());
+        fpccCrouch.SetLookInput(context.ReadValue<Vector2>());
     }
 
     private void UpdateMovementState()
     {
+        if (_pc.IsInCrouchZone)
+        {
+            _pc.UpdateMovementState(MovementState.Crouching);
+            return;
+        }
+
         if (_gameInputs.Player.Run.IsPressed())
         {
             _pc.UpdateMovementState(MovementState.Running);
@@ -80,6 +90,25 @@ public class PlayerInputs : MonoBehaviour
         else
         {
             _pc.UpdateMovementState(MovementState.Idle);
+        }
+    }
+
+    private void OnCrouchZoneExit()
+    {
+        if (!_gameInputs.Player.Crouch.IsPressed())
+        {
+            if (_gameInputs.Player.Run.IsPressed())
+            {
+                _pc.UpdateMovementState(MovementState.Running);
+            }
+            else if(_pc.MovementInput.x != 0 || _pc.MovementInput.y != 0)
+            {
+                _pc.UpdateMovementState(MovementState.Walking);
+            }
+            else
+            {
+                _pc.UpdateMovementState(MovementState.Idle);
+            }
         }
     }
 }

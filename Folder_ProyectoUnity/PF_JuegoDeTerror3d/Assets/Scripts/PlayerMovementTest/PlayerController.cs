@@ -52,9 +52,12 @@ public class PlayerController : MonoBehaviour
 
     #region Events
     public static event Action<MovementState> OnMovementStateChange;
+    public static event Action OnCrouchZoneExit;
     #endregion
 
     [SerializeField] private CapsuleCollider TopCollider;
+    private bool _forceCrouchZone = false;
+    public bool IsInCrouchZone => _forceCrouchZone;
 
     private void OnEnable()
     {
@@ -69,6 +72,11 @@ public class PlayerController : MonoBehaviour
     {
         _playerRB = GetComponent<Rigidbody>();
         _actualSpeed = normalSpeed;
+    }
+
+    private void Update()
+    {
+        TopCollider.isTrigger = _currentMovementState == MovementState.Crouching || _forceCrouchZone;
     }
 
     private void UpdateSpeedByState(MovementState state)
@@ -93,6 +101,24 @@ public class PlayerController : MonoBehaviour
         {
             _currentMovementState = newState;
             OnMovementStateChange?.Invoke(_currentMovementState);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("CrouchZone"))
+        {
+            _forceCrouchZone = true;
+            UpdateMovementState(MovementState.Crouching);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("CrouchZone"))
+        {
+            _forceCrouchZone = false;
+            OnCrouchZoneExit?.Invoke();
         }
     }
 }
