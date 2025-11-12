@@ -9,7 +9,6 @@ public enum MovementState
     Crouching
 }
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     [field: Header("~ Movement Settings")]
@@ -54,21 +53,18 @@ public class PlayerController : MonoBehaviour
             TopCollider.isTrigger = false;
         }
     }
-
-    public void SetInputX(float inputX)
+    private void OnTriggerStay(Collider other)
     {
-        _inputX = inputX;
+        if (other.CompareTag("CrouchZone"))
+        {
+            TopCollider.isTrigger = true;
+            SetMovementState(MovementState.Crouching);
+        }
     }
 
-    public void SetInputZ(float inputZ)
-    {
-        _inputZ = inputZ;
-    }
-
-    public void SetMoveSpeed(float newSpeed)
-    {
-        _actualSpeed = newSpeed;
-    }
+    public void SetInputX(float inputX) => _inputX = inputX;
+    public void SetInputZ(float inputZ) => _inputZ = inputZ;
+    public void SetMoveSpeed(float newSpeed) => _actualSpeed = newSpeed;
 
     public void SetMovementState(MovementState newState)
     {
@@ -76,15 +72,6 @@ public class PlayerController : MonoBehaviour
         {
             _currentMovementState = newState;
             OnMovementChange?.Invoke(_currentMovementState);
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("CrouchZone"))
-        {
-            TopCollider.isTrigger = true;
-            SetMovementState(MovementState.Crouching);
         }
     }
 }
