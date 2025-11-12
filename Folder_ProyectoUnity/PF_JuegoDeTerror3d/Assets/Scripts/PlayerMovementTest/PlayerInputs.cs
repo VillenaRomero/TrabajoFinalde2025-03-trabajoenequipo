@@ -1,72 +1,85 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
+    [SerializeField] private FirstPersonCameraController fpcc;
     private PlayerController _pc;
-
-    [SerializeField] private InputActionAsset inputActions;
-    private InputAction runAction;
-    private InputAction crouchAction;
+    private GameInputs _gameInputs;
 
     private void Awake()
     {
+        _gameInputs = new GameInputs();
         _pc = GetComponent<PlayerController>();
-        runAction = inputActions.FindAction("Run", true);
-        crouchAction = inputActions.FindAction("Crouch", true);
     }
 
     private void OnEnable()
     {
-        runAction?.Enable();
-        crouchAction?.Enable();
+        _gameInputs.Enable();
+        RegisterAction(_gameInputs.Player.Movement, OnMovement);
+        RegisterAction(_gameInputs.Player.Run, OnCharacterRun);
+        RegisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
+        RegisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
     }
 
     private void OnDisable()
     {
-        runAction?.Disable();
-        crouchAction?.Disable();
+        _gameInputs.Disable();
+        UnregisterAction(_gameInputs.Player.Movement, OnMovement);
+        UnregisterAction(_gameInputs.Player.Run, OnCharacterRun);
+        UnregisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
+        UnregisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
     }
 
-    public void OnXMovement(InputAction.CallbackContext context)
+    private void RegisterAction(InputAction action, Action<InputAction.CallbackContext> callback)
     {
-        _pc.SetInputX(context.ReadValue<float>());
-        UpdateMovementState();
+        action.started += callback;
+        action.performed += callback;
+        action.canceled += callback;
     }
 
-    public void OnZMovement(InputAction.CallbackContext context)
+    private void UnregisterAction(InputAction action, Action<InputAction.CallbackContext> callback)
     {
-        _pc.SetInputZ(context.ReadValue<float>());
-        UpdateMovementState();
+        action.started -= callback;
+        action.performed -= callback;
+        action.canceled -= callback;
     }
 
+    private void OnMovement(InputAction.CallbackContext context)
+    {
+        _pc.SetMovementInput(context.ReadValue<Vector2>());
+    }
     public void OnCharacterRun(InputAction.CallbackContext context)
     {
         UpdateMovementState();
     }
-
     public void OnCharacterCrouch(InputAction.CallbackContext context)
     {
         UpdateMovementState();
     }
+    public void OnCameraLook(InputAction.CallbackContext context)
+    {
+        fpcc.SetLookInput(context.ReadValue<Vector2>());
+    }
 
     private void UpdateMovementState()
     {
-        if (runAction != null && runAction.IsPressed())
+        if (_gameInputs.Player.Run.IsPressed())
         {
-            _pc.SetMovementState(MovementState.Running);
+            _pc.UpdateMovementState(MovementState.Running);
         }
-        else if (crouchAction != null && crouchAction.IsPressed())
+        else if (_gameInputs.Player.Crouch.IsPressed())
         {
-            _pc.SetMovementState(MovementState.Crouching);
+            _pc.UpdateMovementState(MovementState.Crouching);
         }
-        else if (_pc._inputX != 0 || _pc._inputZ != 0)
+        else if (_pc.MovementInput.x != 0 || _pc.MovementInput.y != 0)
         {
-            _pc.SetMovementState(MovementState.Walking);
+            _pc.UpdateMovementState(MovementState.Walking);
         }
         else
         {
-            _pc.SetMovementState(MovementState.Idle);
+            _pc.UpdateMovementState(MovementState.Idle);
         }
     }
 }

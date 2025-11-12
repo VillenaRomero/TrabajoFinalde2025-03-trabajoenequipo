@@ -703,7 +703,7 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 0
+  UpdateMethod: 2
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
@@ -762,184 +762,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &986502818
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 986502820}
-  - component: {fileID: 986502819}
-  m_Layer: 0
-  m_Name: PlayerInput
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &986502819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986502818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 447c5eed693c9464eafe5d8660048923, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0c5a279a-1e2d-4c08-b5e7-3348807507ba
-    m_ActionName: 'Player/Movimiento[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 76850a17-8808-4c79-99cc-2c329ddddda7
-    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1e155c6e-7122-462e-b8fa-6fe2528fb877
-    m_ActionName: 'Player/Disparar[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8108669088836934257}
-        m_TargetAssemblyTypeName: FirstPersonCameraController, Assembly-CSharp
-        m_MethodName: OnLook
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1865059509}
-        m_TargetAssemblyTypeName: FirstPersonCameraController, Assembly-CSharp
-        m_MethodName: OnLook
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f954bf7c-bc9b-48a4-9286-f13a1bd85f23
-    m_ActionName: 'Player/CameraLook[/Mouse/delta]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1318751880}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnXMovement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ea4f224c-586d-4767-8a93-b421860f68f9
-    m_ActionName: 'Player/XMovement[/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1318751880}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnZMovement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5c667c52-f2d4-4c3b-b24c-b00c155abdff
-    m_ActionName: 'Player/ZMovement[/Keyboard/s,/Keyboard/w]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1318751880}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnCharacterRun
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 84c80816-34cd-40a7-a493-ee34aeef855c
-    m_ActionName: 'Player/Run[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c919863e-b965-4fa6-9e4c-ce54e8485e3a
-    m_ActionName: 'Player/Camerasystem[/Keyboard/tab]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1318751880}
-        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
-        m_MethodName: OnCharacterCrouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 72480050-0575-44d0-ac73-b78d980a33fa
-    m_ActionName: 'Player/Crouch[/Keyboard/ctrl]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bc899eef-a7d4-488f-aabf-3a693c6901ea
-    m_ActionName: 'Player/Cameranext[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 87d15c02-1078-4a5c-822c-f5753c98595c
-    m_ActionName: 'Player/CameraPrev[/Keyboard/q]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!4 &986502820
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986502818}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.191819, y: 2.3664548, z: 2.5529616}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1061213359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867bfcf44919cf74a9600bda7f34878a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActions: {fileID: -944628639613478452, guid: 447c5eed693c9464eafe5d8660048923, type: 3}
+  _fpcc: {fileID: 8108669088836934257}
 --- !u!114 &1318751881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,13 +1106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7993107912ec66c4abf525edd3cbb1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <enableMovement>k__BackingField: 1
-  <normalSpeed>k__BackingField: 5
-  <enableRun>k__BackingField: 1
-  <runSpeed>k__BackingField: 10
-  <enableCrouch>k__BackingField: 1
-  <crouchSpeed>k__BackingField: 2.5
-  <cameraTransform>k__BackingField: {fileID: 1376649747763260360}
+  enableMovement: 1
+  normalSpeed: 5
+  enableRun: 1
+  runSpeed: 10
+  enableCrouch: 1
+  crouchSpeed: 2.5
+  cameraTransform: {fileID: 1376649747763260360}
   TopCollider: {fileID: 9212155130579596158}
 --- !u!1 &1320888270
 GameObject:
@@ -2170,7 +1992,6 @@ SceneRoots:
   - {fileID: 703574024}
   - {fileID: 760759657}
   - {fileID: 6137168137769643116}
-  - {fileID: 986502820}
   - {fileID: 1529824545}
   - {fileID: 697784124}
   - {fileID: 1131726491}

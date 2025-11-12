@@ -14,15 +14,18 @@ public class FirstPersonCameraController : MonoBehaviour
     [SerializeField] private CinemachineCamera crouchCinemachineCamera;
 
     private float xRotation = 0f;
+
     private Vector2 _lookInput;
+    public Vector2 LookInput => _lookInput;
+    public void SetLookInput(Vector2 input) => _lookInput = input;
 
     private void OnEnable()
     {
-        PlayerController.OnMovementChange += OnMovementStateChanged;
+        PlayerController.OnMovementStateChange += UpdateCameraByState;
     }
     private void OnDisable()
     {
-        PlayerController.OnMovementChange -= OnMovementStateChanged;
+        PlayerController.OnMovementStateChange -= UpdateCameraByState;
     }
 
     private void Start()
@@ -31,12 +34,12 @@ public class FirstPersonCameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    private void Update()
     {
-        _lookInput = context.ReadValue<Vector2>();
+        MoveCamera();
     }
 
-    private void Update()
+    private void MoveCamera()
     {
         float sensitivity = Mouse.current != null && Mouse.current.delta.ReadValue() != Vector2.zero
             ? mouseSensitivity : gamepadSensitivity * Time.deltaTime;
@@ -48,13 +51,14 @@ public class FirstPersonCameraController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
         if (playerBody != null)
         {
             playerBody.Rotate(Vector3.up * mouseX);
         }
     }
 
-    private void OnMovementStateChanged(MovementState state)
+    private void UpdateCameraByState(MovementState state)
     {
         if (normalCinemachineCamera == null || crouchCinemachineCamera == null)
             return;

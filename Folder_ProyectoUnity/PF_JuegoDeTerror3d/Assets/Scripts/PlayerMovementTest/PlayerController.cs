@@ -11,30 +11,59 @@ public enum MovementState
 
 public class PlayerController : MonoBehaviour
 {
-    [field: Header("~ Movement Settings")]
-    [field: SerializeField] public bool enableMovement { get; private set; } = true;
-    [field: SerializeField] public float normalSpeed { get; private set; } = 5f;
+    #region Fields
+    [Header("~ Movement Settings")]
+    [SerializeField] private bool enableMovement = true;
+    [SerializeField] private float normalSpeed = 5f;
 
-    [field: Header("~ Run Settings")]
-    [field: SerializeField] public bool enableRun { get; private set; } = true;
-    [field: SerializeField] public float runSpeed { get; private set; } = 10f;
+    [Header("~ Run Settings")]
+    [SerializeField] private bool enableRun = true;
+    [SerializeField] private float runSpeed = 10f;
 
-    [field: Header("~ Crouch Settings")]
-    [field: SerializeField] public bool enableCrouch { get; private set; } = true;
-    [field: SerializeField] public float crouchSpeed { get; private set; } = 2.5f;
+    [Header("~ Crouch Settings")]
+    [SerializeField] private bool enableCrouch = true;
+    [SerializeField] private float crouchSpeed = 2.5f;
 
-    [field: Header("~ References")]
-    [field: SerializeField] public Transform cameraTransform { get; private set; }
+    [Header("~ References")]
+    [SerializeField] private Transform cameraTransform;
 
-    public Rigidbody _playerRB { get; private set; }
-    public float _actualSpeed { get; private set; }
-    public float _inputX { get; private set; }
-    public float _inputZ { get; private set; }
-    public MovementState _currentMovementState { get; private set; } = MovementState.Idle;
+    private Rigidbody _playerRB;
+    private float _actualSpeed;
+    private Vector2 _movementInput;
+    private MovementState _currentMovementState = MovementState.Idle;
+    #endregion
 
-    public static event Action<MovementState> OnMovementChange;
+    #region Properties
+    public bool EnableMovement => enableMovement;
+    public bool EnableRun => enableRun;
+    public bool EnableCrouch => enableCrouch;
+    public float NormalSpeed => normalSpeed;
+    public float RunSpeed => runSpeed;
+    public float CrouchSpeed => crouchSpeed;
+    public Transform CameraTransform => cameraTransform;
+
+    public Rigidbody PlayerRB => _playerRB;
+    public float ActualSpeed => _actualSpeed;
+    public Vector2 MovementInput => _movementInput;
+
+    public void SetMoveSpeed(float newSpeed) => _actualSpeed = newSpeed;
+    public void SetMovementInput(Vector2 input) => _movementInput = input;
+    #endregion
+
+    #region Events
+    public static event Action<MovementState> OnMovementStateChange;
+    #endregion
 
     [SerializeField] private CapsuleCollider TopCollider;
+
+    private void OnEnable()
+    {
+        OnMovementStateChange += UpdateSpeedByState;
+    }
+    private void OnDisable()
+    {
+        OnMovementStateChange -= UpdateSpeedByState;
+    }
 
     private void Awake()
     {
@@ -42,36 +71,28 @@ public class PlayerController : MonoBehaviour
         _actualSpeed = normalSpeed;
     }
 
-    private void Update()
+    private void UpdateSpeedByState(MovementState state)
     {
-        if (_currentMovementState == MovementState.Crouching)
+        if (state == MovementState.Running && EnableRun)
         {
-            TopCollider.isTrigger = true;
+            SetMoveSpeed(RunSpeed);
+        }
+        else if (state == MovementState.Crouching && EnableCrouch)
+        {
+            SetMoveSpeed(CrouchSpeed);
         }
         else
         {
-            TopCollider.isTrigger = false;
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("CrouchZone"))
-        {
-            TopCollider.isTrigger = true;
-            SetMovementState(MovementState.Crouching);
+            SetMoveSpeed(NormalSpeed);
         }
     }
 
-    public void SetInputX(float inputX) => _inputX = inputX;
-    public void SetInputZ(float inputZ) => _inputZ = inputZ;
-    public void SetMoveSpeed(float newSpeed) => _actualSpeed = newSpeed;
-
-    public void SetMovementState(MovementState newState)
+    public void UpdateMovementState(MovementState newState)
     {
         if (_currentMovementState != newState)
         {
             _currentMovementState = newState;
-            OnMovementChange?.Invoke(_currentMovementState);
+            OnMovementStateChange?.Invoke(_currentMovementState);
         }
     }
 }
