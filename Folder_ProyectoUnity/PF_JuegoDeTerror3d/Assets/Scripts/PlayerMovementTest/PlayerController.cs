@@ -76,6 +76,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        UpdateTopColliderTrigger();
+    }
+
+    private void UpdateTopColliderTrigger()
+    {
         TopCollider.isTrigger = _currentMovementState == MovementState.Crouching || _forceCrouchZone;
     }
 
