@@ -1,22 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuPaused : MonoBehaviour
+public class MenuPaused : MonoBehaviour //Lo puedes hacer en un menu manager general
 {
-    [SerializeField] private GameObject botonpausa;
-    [SerializeField] private GameObject menuPausa;
+    [SerializeField] private GameObject pauseButton;
+    [SerializeField] private GameObject pauseMenu;
 
     public void Pausa()
     {
         Time.timeScale = 0f;
-        botonpausa.SetActive(false);
-        menuPausa.SetActive(true);
+        pauseButton.SetActive(false);
+        pauseMenu.SetActive(true);
     }
     public void Reanudar()
     {
         Time.timeScale = 1f;
-        botonpausa.SetActive(true);
-        menuPausa.SetActive(false);
+        pauseButton.SetActive(true);
+        pauseMenu.SetActive(false);
     }
 
     public void Cerrar()
