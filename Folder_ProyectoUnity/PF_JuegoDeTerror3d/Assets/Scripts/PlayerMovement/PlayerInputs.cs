@@ -6,13 +6,18 @@ public class PlayerInputs : MonoBehaviour
 {
     [SerializeField] private FirstPersonCameraController fpccNormal;
     [SerializeField] private FirstPersonCameraController fpccCrouch;
+    
     private PlayerController _pc;
+    private PlayerStamina _stamina;
     private GameInputs _gameInputs;
+
+    public GameInputs InputActions => _gameInputs;
 
     private void Awake()
     {
         _gameInputs = new GameInputs();
         _pc = GetComponent<PlayerController>();
+        _stamina = GetComponent<PlayerStamina>();
     }
 
     private void OnEnable()
@@ -52,15 +57,19 @@ public class PlayerInputs : MonoBehaviour
     private void OnMovement(InputAction.CallbackContext context)
     {
         _pc.SetMovementInput(context.ReadValue<Vector2>());
+        UpdateMovementState();
     }
+
     private void OnCharacterRun(InputAction.CallbackContext context)
     {
         UpdateMovementState();
     }
+
     private void OnCharacterCrouch(InputAction.CallbackContext context)
     {
         UpdateMovementState();
     }
+
     private void OnCameraLook(InputAction.CallbackContext context)
     {
         fpccNormal.SetLookInput(context.ReadValue<Vector2>());
@@ -75,40 +84,37 @@ public class PlayerInputs : MonoBehaviour
             return;
         }
 
-        if (_gameInputs.Player.Run.IsPressed())
-        {
-            _pc.UpdateMovementState(MovementState.Running);
-        }
-        else if (_gameInputs.Player.Crouch.IsPressed())
+        if (_gameInputs.Player.Crouch.IsPressed())
         {
             _pc.UpdateMovementState(MovementState.Crouching);
+            return;
         }
-        else if (_pc.MovementInput.x != 0 || _pc.MovementInput.y != 0)
-        {
-            _pc.UpdateMovementState(MovementState.Walking);
-        }
-        else
+
+        if (!_pc.IsMoving)
         {
             _pc.UpdateMovementState(MovementState.Idle);
+            return;
         }
+
+        if (_gameInputs.Player.Run.IsPressed() && _stamina != null && _stamina.CanRun)
+        {
+            _pc.UpdateMovementState(MovementState.Running);
+            return;
+        }
+
+        _pc.UpdateMovementState(MovementState.Walking);
+    }
+
+    public void ForceUpdateMovementState()
+    {
+        UpdateMovementState();
     }
 
     private void OnCrouchZoneExit()
     {
         if (!_gameInputs.Player.Crouch.IsPressed())
         {
-            if (_gameInputs.Player.Run.IsPressed())
-            {
-                _pc.UpdateMovementState(MovementState.Running);
-            }
-            else if(_pc.MovementInput.x != 0 || _pc.MovementInput.y != 0)
-            {
-                _pc.UpdateMovementState(MovementState.Walking);
-            }
-            else
-            {
-                _pc.UpdateMovementState(MovementState.Idle);
-            }
+            UpdateMovementState();
         }
     }
 }

@@ -31,23 +31,7 @@ public class PlayerController : MonoBehaviour
     private float _actualSpeed;
     private Vector2 _movementInput;
     private MovementState _currentMovementState = MovementState.Idle;
-    #endregion
-
-    #region Properties
-    public bool EnableMovement => enableMovement;
-    public bool EnableRun => enableRun;
-    public bool EnableCrouch => enableCrouch;
-    public float NormalSpeed => normalSpeed;
-    public float RunSpeed => runSpeed;
-    public float CrouchSpeed => crouchSpeed;
-    public Transform CameraTransform => cameraTransform;
-
-    public Rigidbody PlayerRB => _playerRB;
-    public float ActualSpeed => _actualSpeed;
-    public Vector2 MovementInput => _movementInput;
-
-    public void SetMoveSpeed(float newSpeed) => _actualSpeed = newSpeed;
-    public void SetMovementInput(Vector2 input) => _movementInput = input;
+    private bool _isMoving = false;
     #endregion
 
     #region Events
@@ -125,5 +109,29 @@ public class PlayerController : MonoBehaviour
             _forceCrouchZone = false;
             OnCrouchZoneExit?.Invoke();
         }
+    }    
+    
+    #region Properties
+    public bool EnableMovement => enableMovement;
+    public bool EnableRun => enableRun;
+    public bool EnableCrouch => enableCrouch;
+    public float NormalSpeed => normalSpeed;
+    public float RunSpeed => runSpeed;
+    public float CrouchSpeed => crouchSpeed;
+    public Transform CameraTransform => cameraTransform;
+
+    public Rigidbody PlayerRB => _playerRB;
+    public float ActualSpeed => _actualSpeed;
+    public Vector2 MovementInput => _movementInput;
+    public MovementState CurrentMovementState => _currentMovementState;
+    public bool IsMoving => _isMoving;
+
+    public void SetMoveSpeed(float newSpeed) => _actualSpeed = newSpeed;
+    
+    public void SetMovementInput(Vector2 input)
+    {
+        _movementInput = input;
+        _isMoving = _movementInput.x != 0 || _movementInput.y != 0;
     }
+    #endregion
 }
