@@ -7,71 +7,58 @@ public class CameraInfo {
 
     public Transform Position;
     public Transform Direction;
-    public int index;
+    public int Index;
 }
 
-public class CameraController : MonoBehaviour // <- arreglar todo esto
+public class CameraController : MonoBehaviour
 {
-    [Header("Cámara principal (única del juego)")]
-    public Camera mainCamera;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Transform[] cameraPositions;
+    [SerializeField] private Transform[] cameraDirections;
+    [SerializeField] private Transform playerView;
 
-    [Header("Posiciones FNAF (dónde estará la cámara)")]
-    public Transform[] cameraPositions;
-
-    [Header("Direcciones FNAF (hacia dónde mira la cámara)")]
-    public Transform[] cameraDirections;
-
-    [Header("Vista del jugador normal")]
-    public Transform playerView;
-
-    [Header("UI del modo FNAF")]
-    public GameObject fnafUIPanel;
-    public TMP_Text cameraNameText;
+    [SerializeField] private GameObject fnafUIPanel;
+    [SerializeField] private TMP_Text cameraNameText;
 
     private bool isFnafMode = false;
 
-    private DoubleList<Transform> positionList = new DoubleList<Transform>();
-    private DoubleList<Transform> directionList = new DoubleList<Transform>();
+    private DoubleList<CameraInfo> cameraList = new DoubleList<CameraInfo>();
+    private Node<CameraInfo> currentNode;
 
-    private DoubleList<CameraInfo> NewDirectionlist = new DoubleList<CameraInfo>();
-    private CameraInfo currentCameraInfo;
-
-    private Node<Transform> currentPosNode;
-    private Node<Transform> currentDirNode;
     private int currentIndex = 0;
 
     void Start()
     {
-        Camerasituation();
+        SetupCameras();
     }
 
-    public void Camerasituation() { 
+    private void SetupCameras()
+    {
         if (cameraPositions == null || cameraPositions.Length == 0)
         {
-            Debug.LogError(" No hay posiciones de cámara asignadas.");
+            Debug.LogError("No hay posiciones de cámara.");
             return;
         }
 
-        for (int i = 0; i < cameraPositions.Length; i++)
+        if (cameraDirections == null || cameraDirections.Length != cameraPositions.Length)
         {
-            positionList.AddNode(cameraPositions[i]);
-            if (cameraDirections != null && i < cameraDirections.Length)
-                directionList.AddNode(cameraDirections[i]);
-            else
-                directionList.AddNode(null);
-
-            CameraInfo cameraInfo = new CameraInfo();
-
-            cameraInfo.Position = cameraPositions[i];
-            cameraInfo.Direction = cameraDirections[i];
-            cameraInfo.index = i;
-
-
-            NewDirectionlist.AddNode(cameraInfo);
+            Debug.LogError("Las direcciones NO coinciden en cantidad con las posiciones.");
+            return;
         }
 
-        currentPosNode = positionList.Head;
-        currentDirNode = directionList.Head;
+        cameraList = new DoubleList<CameraInfo>();
+
+        for (int i = 0; i < cameraPositions.Length; i++)
+        {
+            CameraInfo cameraInfo = new CameraInfo();
+            cameraInfo.Position = cameraPositions[i];
+            cameraInfo.Direction = cameraDirections[i];
+            cameraInfo.Index = i;
+
+            cameraList.AddNode(cameraInfo);
+        }
+
+        currentNode = cameraList.Head;
 
         if (fnafUIPanel != null)
             fnafUIPanel.SetActive(false);
@@ -79,57 +66,61 @@ public class CameraController : MonoBehaviour // <- arreglar todo esto
         UpdateCameraText();
     }
 
-    public void GoToCamera(int index)
+    public void GoNext()
     {
-        if (mainCamera == null)
+        if (currentNode == null)
+            currentNode = cameraList.Head;
+
+        else if (currentNode.Next != null)
+            currentNode = currentNode.Next;
+
+        ApplyCamera();
+    }
+
+    public void GoPrev()
+    {
+        if (currentNode == null)
+            currentNode = cameraList.Head;
+
+        else if (currentNode.Prev != null)
+            currentNode = currentNode.Prev;
+
+        ApplyCamera();
+    }
+
+    public void GotoIndex(int index)
+    {
+        Node<CameraInfo> temp = cameraList.Head;
+
+        while (temp != null)
         {
-            Debug.LogError(" MainCamera no asignada.");
+            if (temp.Value.Index == index)
+            {
+                currentNode = temp;
+                ApplyCamera();
+                return;
+            }
+            temp = temp.Next;
+        }
+
+        Debug.Log("Índice fuera de rango: " + index);
+    }
+
+    private void ApplyCamera()
+    {
+        if (mainCamera == null || currentNode == null)
             return;
-        }
 
-        if (cameraPositions == null || cameraPositions.Length == 0)
-        {
-            Debug.LogError(" No hay posiciones de cámara asignadas.");
-            return;
-        }
+        CameraInfo cam = currentNode.Value;
 
-        if (index < 0 || index >= cameraPositions.Length)
-        {
-            Debug.LogWarning(" Índice fuera de rango: " + index);
-            return;
-        }
+        if (cam.Position != null)
+            mainCamera.transform.position = cam.Position.position;
 
-        mainCamera.transform.position = cameraPositions[index].position;
+        if (cam.Direction != null)
+            mainCamera.transform.LookAt(cam.Direction);
 
-        if (cameraDirections != null && index < cameraDirections.Length && cameraDirections[index] != null)
-            mainCamera.transform.LookAt(cameraDirections[index]);
-        else
-            Debug.LogWarning(" Dirección de cámara no asignada en el índice " + index);
-
-        currentPosNode = positionList.Head;
-        currentDirNode = directionList.Head;
-        for (int i = 0; i < index && currentPosNode.Next != null; i++)
-        {
-            currentPosNode = currentPosNode.Next;
-            currentDirNode = currentDirNode.Next;
-        }
-
-        currentIndex = index;
+        currentIndex = cam.Index;
         UpdateCameraText();
-    }
-    public void GoNext() {
-        if (currentCameraInfo == null) {
-           currentCameraInfo = NewDirectionlist.Head.Value;
-        }
-
-        //Camera.main.transform = currentCameraInfo.Position;
-    }
-
-    public void GoPrev() { 
-    
-    }
-    public void GotoiNDEX(int Index) { 
-    
     }
 
     public void OnCamera(InputAction.CallbackContext context)
@@ -140,81 +131,34 @@ public class CameraController : MonoBehaviour // <- arreglar todo esto
 
         if (isFnafMode)
         {
-            if (fnafUIPanel != null)
-                fnafUIPanel.SetActive(true);
-
-            UpdateCameraTransform();
+            if (fnafUIPanel != null) fnafUIPanel.SetActive(true);
+            ApplyCamera();
         }
         else
         {
-            if (fnafUIPanel != null)
-                fnafUIPanel.SetActive(false);
-
-            VolverAVistaJugador();
+            if (fnafUIPanel != null) fnafUIPanel.SetActive(false);
+            ReturnToPlayerView();
         }
     }
 
     public void OnNextCamera(InputAction.CallbackContext context)
     {
-        if (!context.performed || !isFnafMode) return;
-        GoNextCamera();
+        if (context.performed && isFnafMode)
+            GoNext();
     }
 
     public void OnPreviousCamera(InputAction.CallbackContext context)
     {
-        if (!context.performed || !isFnafMode) return;
-        GoPreviousCamera();
+        if (context.performed && isFnafMode)
+            GoPrev();
     }
 
-    private void GoNextCamera()
+    private void ReturnToPlayerView()
     {
-        if (currentPosNode == null || currentPosNode.Next == null)
-        {
-            Debug.Log(" No hay siguiente cámara.");
-            return;
-        }
+        if (mainCamera == null || playerView == null) return;
 
-        currentPosNode = currentPosNode.Next;
-        currentDirNode = currentDirNode.Next;
-        currentIndex++;
-
-        UpdateCameraTransform();
-        UpdateCameraText();
-    }
-
-    private void GoPreviousCamera()
-    {
-        if (currentPosNode == null || currentPosNode.Prev == null)
-        {
-            Debug.Log(" No hay cámara anterior.");
-            return;
-        }
-
-        currentPosNode = currentPosNode.Prev;
-        currentDirNode = currentDirNode.Prev;
-        currentIndex--;
-
-        UpdateCameraTransform();
-        UpdateCameraText();
-    }
-
-    private void UpdateCameraTransform()
-    {
-        if (mainCamera == null || currentPosNode == null) return;
-
-        mainCamera.transform.position = currentPosNode.Value.position;
-
-        if (currentDirNode != null && currentDirNode.Value != null)
-            mainCamera.transform.LookAt(currentDirNode.Value);
-    }
-
-    private void VolverAVistaJugador()
-    {
-        if (mainCamera != null && playerView != null)
-        {
-            mainCamera.transform.position = playerView.position;
-            mainCamera.transform.rotation = playerView.rotation;
-        }
+        mainCamera.transform.position = playerView.position;
+        mainCamera.transform.rotation = playerView.rotation;
     }
 
     private void UpdateCameraText()

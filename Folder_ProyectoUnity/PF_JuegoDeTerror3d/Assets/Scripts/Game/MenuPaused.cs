@@ -1,4 +1,4 @@
-using UnityEngine;
+  using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuPaused : MonoBehaviour //Lo puedes hacer en un menu manager general
@@ -6,27 +6,27 @@ public class MenuPaused : MonoBehaviour //Lo puedes hacer en un menu manager gen
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject pauseMenu;
 
-    public void Pausa()
+    public void Pause()
     {
         Time.timeScale = 0f;
         pauseButton.SetActive(false);
         pauseMenu.SetActive(true);
     }
-    public void Reanudar()
+    public void Resume()
     {
         Time.timeScale = 1f;
         pauseButton.SetActive(true);
         pauseMenu.SetActive(false);
     }
 
-    public void Cerrar()
+    public void Close()
     {
         Application.Quit();
     }
 
-    public void Cambiarescenio(string nombreescena)
+    public void Changescene(string scenename)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(nombreescena);
+        SceneManager.LoadScene(scenename);
     }
 }
