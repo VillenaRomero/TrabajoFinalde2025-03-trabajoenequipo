@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class LightMenu : MonoBehaviour
 {
-
     public Light light3D;
     public float minIntensity;
     public float maxIntensity;
@@ -18,8 +17,6 @@ public class LightMenu : MonoBehaviour
 
     void Start()
     {
-        if (light3D == null)
-            light3D = GetComponent<Light>();
         color.a = 10f;
     }
 
