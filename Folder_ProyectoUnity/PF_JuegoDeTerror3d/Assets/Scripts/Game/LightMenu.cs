@@ -5,11 +5,11 @@ using DG.Tweening;
 public class LightMenu : MonoBehaviour
 {
     [Header("Light Flicker Settings")]
-    public Light light3D;
-    public float minIntensity;
-    public float maxIntensity;
-    public float flickerSpeed;
-    public float offChance;
+    [SerializeField]private Light light3D;
+    [SerializeField] private float minIntensity;
+    [SerializeField] private float maxIntensity;
+    [SerializeField] private float flickerSpeed;
+    [SerializeField] private float offChance;
 
     [Header("Pendulum Settings")]
     [SerializeField] private float pendulumAngle = 30f;

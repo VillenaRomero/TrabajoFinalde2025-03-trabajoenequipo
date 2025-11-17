@@ -4,7 +4,6 @@ using TMPro;
 using System;
 
 public class CameraInfo {
-
     public Transform Position;
     public Transform Direction;
     public int Index;

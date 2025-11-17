@@ -296,10 +296,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 233720281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 329f8065392679047bf103ac6d2f3ac0, type: 3}
+  m_Script: {fileID: 11500000, guid: 028e75ae2e256a74084344fa023c3f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalLevels: 5
+  pauseButton: {fileID: 1376076574}
+  pauseMenu: {fileID: 1376076574}
 --- !u!1 &753254609
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +440,15 @@ MonoBehaviour:
   maxIntensity: 93
   flickerSpeed: 0
   offChance: 0
+  pendulumAngle: 30
+  pendulumDuration: 2
+  pendulumCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationAxis: 2
   textostmpo: []
   color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &780372344
@@ -536,6 +546,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 145916184}
+  - {fileID: 1219790537}
   - {fileID: 1742485055}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -649,16 +660,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219790536}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.2507, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1742485055}
+  m_Father: {fileID: 780372348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -637, y: 88}
+  m_AnchoredPosition: {x: -118, y: -170}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1219790538
@@ -706,8 +717,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 233720284}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_TargetAssemblyTypeName: MenuPaused, Assembly-CSharp
+        m_MethodName: Changescene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -755,6 +766,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219790536}
   m_CullTransparentMesh: 1
+--- !u!1 &1376076574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1376076575}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1376076575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376076574}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 883.0685, y: -2.9765933, z: 359.52228}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1396509762
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,8 +935,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1219790537}
+  m_Children: []
   m_Father: {fileID: 780372348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1270,3 +1311,4 @@ SceneRoots:
   - {fileID: 860885944}
   - {fileID: 753254612}
   - {fileID: 233720283}
+  - {fileID: 1376076575}
