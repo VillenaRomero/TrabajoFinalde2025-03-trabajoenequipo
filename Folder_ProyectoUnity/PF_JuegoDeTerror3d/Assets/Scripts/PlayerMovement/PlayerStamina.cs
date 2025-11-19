@@ -12,8 +12,8 @@ public class PlayerStamina : MonoBehaviour
     [SerializeField] private Color staminaColor;
 
     [Header("UI References")]
-    [SerializeField] private Image fullStaminaBorder;
-    [SerializeField] private Slider staminaSlider;
+    [SerializeField] private Image runIcon;
+    [SerializeField] private Image staminaCircle;
 
     private PlayerController _pc;
     private PlayerInputs _playerInputs;
@@ -27,13 +27,9 @@ public class PlayerStamina : MonoBehaviour
     {
         _pc = GetComponent<PlayerController>();
         _playerInputs = GetComponent<PlayerInputs>();
-        _currentStamina = maxStamina;
 
-        if (staminaSlider != null)
-        {
-            staminaSlider.maxValue = maxStamina;
-            staminaSlider.value = _currentStamina;
-        }
+        _currentStamina = maxStamina;
+        staminaCircle.fillAmount = _currentStamina / 100;
     }
 
     private void Update()
@@ -54,7 +50,7 @@ public class PlayerStamina : MonoBehaviour
             if (_currentStamina <= 0f)
             {
                 _canRun = false;
-                fullStaminaBorder.color = staminaColor;
+                runIcon.color = staminaColor;
             }
         }
         else
@@ -65,7 +61,7 @@ public class PlayerStamina : MonoBehaviour
             if (_currentStamina >= minStaminaToRun)
             {
                 _canRun = true;
-                fullStaminaBorder.color = fullStaminaColor;
+                runIcon.color = fullStaminaColor;
             }
         }
 
@@ -74,7 +70,7 @@ public class PlayerStamina : MonoBehaviour
             if (_currentStamina < minStaminaToRun)
             {
                 _canRun = false;
-                fullStaminaBorder.color = staminaColor;
+                runIcon.color = staminaColor;
             }
         }
 
@@ -86,9 +82,6 @@ public class PlayerStamina : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (staminaSlider != null)
-        {
-            staminaSlider.value = _currentStamina;
-        }
+            staminaCircle.fillAmount = _currentStamina / 100;
     }
 }
