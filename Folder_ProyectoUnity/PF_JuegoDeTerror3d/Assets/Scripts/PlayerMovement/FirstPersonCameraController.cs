@@ -11,17 +11,17 @@ public class FirstPersonCameraController : MonoBehaviour
     [SerializeField] private CinemachineCamera normalCinemachineCamera;
     [SerializeField] private CinemachineCamera crouchCinemachineCamera;
 
-    public float CameraSensitivity => mouseSensitivity;
+    [SerializeField] private CinemachineInputAxisController normalInputAxisController;
+    [SerializeField] private CinemachineInputAxisController crouchInputAxisController;
 
-    private Vector2 _lookInput;
-    public Vector2 LookInput => _lookInput;
-    public void SetLookInput(Vector2 input) => _lookInput = input;
+    public float MouseSensitivity => mouseSensitivity;
+    public float GamepadSensitivity => gamepadSensitivity;
 
     private void OnEnable()
     {
         PlayerController.OnMovementStateChange += UpdateCameraByState;
     }
-    
+
     private void OnDisable()
     {
         PlayerController.OnMovementStateChange -= UpdateCameraByState;
@@ -31,11 +31,23 @@ public class FirstPersonCameraController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        SetSensitivity(mouseSensitivity, normalInputAxisController);
+        SetSensitivity(mouseSensitivity, crouchInputAxisController);
     }
 
-    private void Update()
+    public void SetSensitivity(float newSensitivity, CinemachineInputAxisController inputAxisController)
     {
-
+        foreach (var controller in inputAxisController.Controllers)
+        {
+            if (controller.Name == "Look X (Pan)")
+            {
+                controller.Input.Gain = newSensitivity;
+            }
+            else if (controller.Name == "Look Y (Tilt)")
+            {
+                controller.Input.Gain = -newSensitivity;
+            }
+        }
     }
 
     private void UpdateCameraByState(MovementState state)

@@ -4,9 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
-    [SerializeField] private FirstPersonCameraController fpccNormal;
-    [SerializeField] private FirstPersonCameraController fpccCrouch;
-    
     private PlayerController _pc;
     private PlayerStamina _stamina;
     private GameInputs _gameInputs;
@@ -26,7 +23,6 @@ public class PlayerInputs : MonoBehaviour
         RegisterAction(_gameInputs.Player.Movement, OnMovement);
         RegisterAction(_gameInputs.Player.Run, OnCharacterRun);
         RegisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
-        //RegisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
         PlayerController.OnCrouchZoneExit += OnCrouchZoneExit;
     }
 
@@ -36,7 +32,6 @@ public class PlayerInputs : MonoBehaviour
         UnregisterAction(_gameInputs.Player.Movement, OnMovement);
         UnregisterAction(_gameInputs.Player.Run, OnCharacterRun);
         UnregisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
-        //UnregisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
         PlayerController.OnCrouchZoneExit -= OnCrouchZoneExit;
     }
 
@@ -69,12 +64,6 @@ public class PlayerInputs : MonoBehaviour
     {
         UpdateMovementState();
     }
-
-    //private void OnCameraLook(InputAction.CallbackContext context)
-    //{
-    //    fpccNormal.SetLookInput(context.ReadValue<Vector2>());
-    //    fpccCrouch.SetLookInput(context.ReadValue<Vector2>());
-    //}
 
     private void UpdateMovementState()
     {
