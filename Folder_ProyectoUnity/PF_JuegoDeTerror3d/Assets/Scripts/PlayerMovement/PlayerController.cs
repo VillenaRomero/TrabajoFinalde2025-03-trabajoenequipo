@@ -109,8 +109,8 @@ public class PlayerController : MonoBehaviour
             _forceCrouchZone = false;
             OnCrouchZoneExit?.Invoke();
         }
-    }    
-    
+    }
+
     #region Properties
     public bool EnableMovement => enableMovement;
     public bool EnableRun => enableRun;
@@ -127,11 +127,17 @@ public class PlayerController : MonoBehaviour
     public bool IsMoving => _isMoving;
 
     public void SetMoveSpeed(float newSpeed) => _actualSpeed = newSpeed;
-    
+
     public void SetMovementInput(Vector2 input)
     {
+        bool wasMoving = _isMoving;
         _movementInput = input;
         _isMoving = _movementInput.x != 0 || _movementInput.y != 0;
+
+        if (_isMoving != wasMoving)
+        {
+            OnMovementStateChange?.Invoke(_currentMovementState);
+        }
     }
     #endregion
 }
