@@ -1,19 +1,17 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using UnityEngine;
 
 public class FirstPersonCameraController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float mouseSensitivity = 2f;
-    [SerializeField] private float gamepadSensitivity = 80f;
-    [SerializeField] private Transform playerBody;
+    [SerializeField] private float mouseSensitivity = 10f;
+    [SerializeField] private float gamepadSensitivity = 200f;
 
     [Header("Cinemachine Cameras")]
     [SerializeField] private CinemachineCamera normalCinemachineCamera;
     [SerializeField] private CinemachineCamera crouchCinemachineCamera;
 
-    private float xRotation = 0f;
+    public float CameraSensitivity => mouseSensitivity;
 
     private Vector2 _lookInput;
     public Vector2 LookInput => _lookInput;
@@ -23,6 +21,7 @@ public class FirstPersonCameraController : MonoBehaviour
     {
         PlayerController.OnMovementStateChange += UpdateCameraByState;
     }
+    
     private void OnDisable()
     {
         PlayerController.OnMovementStateChange -= UpdateCameraByState;
@@ -36,26 +35,7 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void Update()
     {
-        MoveCamera();
-    }
 
-    private void MoveCamera()
-    {
-        float sensitivity = Mouse.current != null && Mouse.current.delta.ReadValue() != Vector2.zero
-            ? mouseSensitivity : gamepadSensitivity * Time.deltaTime;
-
-        float mouseX = _lookInput.x * sensitivity;
-        float mouseY = _lookInput.y * sensitivity;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        if (playerBody != null)
-        {
-            playerBody.Rotate(Vector3.up * mouseX);
-        }
     }
 
     private void UpdateCameraByState(MovementState state)

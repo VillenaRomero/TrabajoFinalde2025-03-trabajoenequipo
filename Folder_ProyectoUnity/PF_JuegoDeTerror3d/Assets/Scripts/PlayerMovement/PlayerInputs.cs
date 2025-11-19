@@ -26,7 +26,7 @@ public class PlayerInputs : MonoBehaviour
         RegisterAction(_gameInputs.Player.Movement, OnMovement);
         RegisterAction(_gameInputs.Player.Run, OnCharacterRun);
         RegisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
-        RegisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
+        //RegisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
         PlayerController.OnCrouchZoneExit += OnCrouchZoneExit;
     }
 
@@ -36,7 +36,7 @@ public class PlayerInputs : MonoBehaviour
         UnregisterAction(_gameInputs.Player.Movement, OnMovement);
         UnregisterAction(_gameInputs.Player.Run, OnCharacterRun);
         UnregisterAction(_gameInputs.Player.Crouch, OnCharacterCrouch);
-        UnregisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
+        //UnregisterAction(_gameInputs.Player.CameraLook, OnCameraLook);
         PlayerController.OnCrouchZoneExit -= OnCrouchZoneExit;
     }
 
@@ -70,11 +70,11 @@ public class PlayerInputs : MonoBehaviour
         UpdateMovementState();
     }
 
-    private void OnCameraLook(InputAction.CallbackContext context)
-    {
-        fpccNormal.SetLookInput(context.ReadValue<Vector2>());
-        fpccCrouch.SetLookInput(context.ReadValue<Vector2>());
-    }
+    //private void OnCameraLook(InputAction.CallbackContext context)
+    //{
+    //    fpccNormal.SetLookInput(context.ReadValue<Vector2>());
+    //    fpccCrouch.SetLookInput(context.ReadValue<Vector2>());
+    //}
 
     private void UpdateMovementState()
     {

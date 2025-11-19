@@ -169,7 +169,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""f954bf7c-bc9b-48a4-9286-f13a1bd85f23"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=10,y=10)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
